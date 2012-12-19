@@ -1,5 +1,10 @@
 <?php 
 
+/**
+ * @author http://net.tutsplus.com/tutorials/php/understanding-and-applying-polymorphism-in-php/
+ */
+
+
 // Used naming convention is “package_component_Class.”
 class poly_base_Article {
 
@@ -15,14 +20,6 @@ class poly_base_Article {
 		$this->category = $category;
 	}
 
-	/** This is kind of an ugly solution, but it works — for now. 
-	  * Ask yourself what happens in the future, though, when we want to add more formats? 
-	  * You can keep editing the class, adding more and more cases, but now you’re only 
-	  * diluting your class.This is kind of an ugly solution, but it works — for now. 
-	  * Ask yourself what happens in the future, though, when we want to add more formats? 
-	  * You can keep editing the class, adding more and more cases, but now you’re only diluting your class.
-	*/
-	
 	public function write($type) {
 		$ret = '';
 		switch ($type) {
