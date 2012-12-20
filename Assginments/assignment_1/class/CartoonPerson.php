@@ -13,22 +13,19 @@
 class CartoonPerson {
 	// create cartoon person instance variable / property
 	
-	//@FIXME: variable name not explicit enough...
-	private $person;
-	private $character;
-	private $quote;
 	// Create 4 instance variables representing the main characters
-	private $husband;
-	private $wife;
-	private $boy;
-	private $girl;
+	private $name;
+	private $age;
+	private $sex;
+	private $wight;
+
 	// Create a list of quotes
 	private $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');	
 	// Create looper flag to prevent infinite loop when calling the talker method
 	private $looper = true;
 
 	// Constructor
-	protected function __construct() {
+	public function __construct() {
 		$argument = func_get_args();
 		switch (func_num_args()) {
 			case 2:
@@ -44,24 +41,24 @@ class CartoonPerson {
 	}
 
 	// Add 3 Constructor methods accepting 1, 2, or 3 number of arguments
-	private function __construct1($person) {
-		$this->person = $person;
+	private function __construct1($name) {
+		$this->name = $name;
 	}
 
-	private function __construct2($person, $character) {
-		$this->person = $person;
-		$this->character = $character;
+	private function __construct2($name, $age) {
+		$this->name = $name;
+		$this->age = $age;
 	}
 
-	private function __construct3($person, $character, $quote) {
-		$this->person = $person;
-		$this->character = $character;
+	private function __construct3($name, $age, $quote) {
+		$this->name = $name;
+		$this->age = $age;
 		array_push($this->quotes, $quote);
 	}
 
 	// Show CartoonPerson object with echo for test
 	public function __toString() {
-		return $this->person;
+		return $this->name;
 	}
 
 	// Get random quotes
@@ -71,25 +68,25 @@ class CartoonPerson {
 	}
 
 	// Create talker method
-	protected function toTalk($p) {		
+	public function toTalk($p) {		
 		// message
-		echo $this->person.' says: '.$this->getRandomQuote().$p.'<br />';
+		echo $this->name.' says: '.$this->getRandomQuote().$p.'<br />';
 
 		// replay
 		if ($this->looper == true) {
 			// Problem #5: prevent infinite loop overwriting the looper flag from CartoonPerson class
 			$p->looper = false;
-			$p->toTalk($this->person);	
+			$p->toTalk($this->name);	
 		}
 	}
 }
 
 
 // Writer class
-class WriteMessage extends CartoonPerson {
+class WriteMessage {
 	public static function main() {
 		$homi = new CartoonPerson('Homer');
-		$lizi = new CartoonPerson('Lisa', 'sad', 'What is this?');
+		$lizi = new CartoonPerson('Lisa', '43', 'What is this?');
 		$barti = new CartoonPerson('Bart');
 		$margi = new CartoonPerson('Marge');
 
@@ -99,7 +96,7 @@ class WriteMessage extends CartoonPerson {
 		//echo $barti;
 
 		// Lisa talks with Marge. They are alos Objects instances of CartoonPerson class
-		// $lizi->toTalk($margi);
+		$lizi->toTalk($margi);
 	}
 }
 
