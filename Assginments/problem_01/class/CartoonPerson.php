@@ -47,21 +47,20 @@ class CartoonPerson {
 	}
 }
 
-class Main {
-	public function main() {
+class WriteMessage {
+	public static function main() {
 		$homi = new CartoonPerson('Homer');
+		$homi->toTalk('Bart');
+
 		$lizi = new CartoonPerson('Lisa');
 		$barti = new CartoonPerson('Bart');
 		$margi = new CartoonPerson('Marge');
 	}
 }
 
-$homi = new CartoonPerson('Homer');
-$homi->toTalk('Bart');
-// $homi->toTalk('Lisa');
+// Do some Messaging
+WriteMessage::main();
 
-// $lizi = new CartoonPerson('Lisa');
-// $lizi->toTalk('Marge');
 
 
 
