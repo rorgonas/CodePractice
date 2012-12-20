@@ -11,8 +11,7 @@
 
 // CartoonPerson class
 class CartoonPerson {
-	// create cartoon person instance variable / property
-	
+
 	// Create 4 instance variables representing the main characters
 	private $name;
 	private $age;
@@ -21,6 +20,7 @@ class CartoonPerson {
 
 	// Create a list of quotes
 	private $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');	
+
 	// Create looper flag to prevent infinite loop when calling the talker method
 	private $looper = true;
 
@@ -76,7 +76,7 @@ class CartoonPerson {
 		if ($this->looper == true) {
 			// Problem #5: prevent infinite loop overwriting the looper flag from CartoonPerson class
 			$p->looper = false;
-			$p->toTalk($this->name);	
+			$p->toTalk($this);	
 		}
 	}
 }
