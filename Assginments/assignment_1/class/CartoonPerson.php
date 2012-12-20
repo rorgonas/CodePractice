@@ -12,59 +12,62 @@
 // CartoonPerson class
 class CartoonPerson {
 	// create cartoon person instance variable / property
-	public $person;
-	
+	private $person;
 	// Create 4 instance variables representing the main characters
-	public $husband;
-	public $wife;
-	public $boy;
-	public $girl;
-	
+	private $husband;
+	private $wife;
+	private $boy;
+	private $girl;
 	// Create a list of quotes
-	public $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');
-		
+	private $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');	
 	// Create looper flag to prevent infinite loop when calling the talker method
-	public $looper = true;
+	private $looper = true;
 
 	// Constructor
-	public function __construct($person) {
+	protected function __construct($person) {
 		$this->person = $person;
-		// $this->__construct($arg1, $arg2);  // Problem #3: impossible call to second constructor
 	}
 
-	// Problem #3: Add one more constructor
-	// Cannot redeclare __construct() in the class
+	// Show CartoonPerson object with echo for test
+	public function __toString() {
+		return $this->person;
+	}
 
 	// Get random quotes
-	public function getRandomQuote() {
+	private function getRandomQuote() {
 		$random_key = array_rand($this->quotes);
 		return $this->quotes[$random_key];
 	}
 
 	// Create talker method
-	public function toTalk($p) {		
+	protected function toTalk($p) {		
 		// message
 		echo $this->person.' says: '.$this->getRandomQuote().$p.'<br />';
 		// replay
 		if ($this->looper == true) {
-			$pPerson = new CartoonPerson($p);
 			// Problem #5: prevent infinite loop overwriting the looper flag from CartoonPerson class
-			$pPerson->looper = false;
-			$pPerson->toTalk($this->person);	
+			$p->looper = false;
+			$p->toTalk($this->person);	
 		}
 	}
 }
 
 
 // Writer class
-class WriteMessage {
+class WriteMessage extends CartoonPerson {
 	public static function main() {
 		$homi = new CartoonPerson('Homer');
-		$homi->toTalk('Bart');
-
 		$lizi = new CartoonPerson('Lisa');
 		$barti = new CartoonPerson('Bart');
 		$margi = new CartoonPerson('Marge');
+
+		// Homer ($homi) talks with Bart ($barti). Homer and Bart are Objects instances of CartoonPerson class
+		$homi->toTalk($barti);
+		//echo $homi;
+		//echo $barti;
+
+		// Lisa talks with Marge. They are alos Objects instances of CartoonPerson class
+		$lizi->toTalk($margi);
 	}
 }
 
