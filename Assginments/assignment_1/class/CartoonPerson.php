@@ -13,6 +13,8 @@
 class CartoonPerson {
 	// create cartoon person instance variable / property
 	private $person;
+	private $character;
+	private $quote;
 	// Create 4 instance variables representing the main characters
 	private $husband;
 	private $wife;
@@ -24,8 +26,35 @@ class CartoonPerson {
 	private $looper = true;
 
 	// Constructor
-	protected function __construct($person) {
+	protected function __construct() {
+		$argument = func_get_args();
+		switch (func_num_args()) {
+			case 2:
+				$this->__construct2($argument[0],$argument[1]);
+				break;
+			case 3:
+				$this->__construct3($argument[0],$argument[1],$argument[2]);
+				break;
+			default:
+				$this->__construct1($argument[0]);
+				break;
+		}		
+	}
+
+	// Add 3 Constructor methods accepting 1, 2, or 3 number of arguments
+	private function __construct1($person) {
 		$this->person = $person;
+	}
+
+	private function __construct2($person, $character) {
+		$this->person = $person;
+		$this->character = $character;
+	}
+
+	private function __construct3($person, $character, $quote) {
+		$this->person = $person;
+		$this->character = $character;
+		$this->quotes = $quote;
 	}
 
 	// Show CartoonPerson object with echo for test
@@ -43,6 +72,7 @@ class CartoonPerson {
 	protected function toTalk($p) {		
 		// message
 		echo $this->person.' says: '.$this->getRandomQuote().$p.'<br />';
+
 		// replay
 		if ($this->looper == true) {
 			// Problem #5: prevent infinite loop overwriting the looper flag from CartoonPerson class
@@ -57,7 +87,7 @@ class CartoonPerson {
 class WriteMessage extends CartoonPerson {
 	public static function main() {
 		$homi = new CartoonPerson('Homer');
-		$lizi = new CartoonPerson('Lisa');
+		$lizi = new CartoonPerson('Lisa', 'sad');
 		$barti = new CartoonPerson('Bart');
 		$margi = new CartoonPerson('Marge');
 
@@ -67,7 +97,7 @@ class WriteMessage extends CartoonPerson {
 		//echo $barti;
 
 		// Lisa talks with Marge. They are alos Objects instances of CartoonPerson class
-		$lizi->toTalk($margi);
+		// $lizi->toTalk($margi);
 	}
 }
 
