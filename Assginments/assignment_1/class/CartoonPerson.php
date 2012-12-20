@@ -16,7 +16,7 @@ class CartoonPerson {
 	private $name;
 	private $age;
 	private $sex;
-	private $wight;
+	private $weight;
 
 	// Create a list of quotes
 	private $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');	
