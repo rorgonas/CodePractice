@@ -2,9 +2,10 @@
 
 
 /**
+ * OOP Assignment #1
+ *
  * @author Rolland Orgonas I.
- *
- *
+ * @copyright 2012 Teksystems MSC
 */
 
 
