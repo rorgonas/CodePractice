@@ -18,6 +18,7 @@ class CartoonPerson {
 	public $girl;
 		// Create a list of quotes
 	public $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');
+	public $looper = true;
 
 	public function __construct($person) {
 		$this->person = $person;
@@ -29,17 +30,19 @@ class CartoonPerson {
 
 	public function getRandomQuote() {
 		$random_key = array_rand($this->quotes);
-		$quote = $this->quotes[$random_key];
-		return $quote;
+		return $this->quotes[$random_key];
 	}
 
 	// Create toTalk method
 	public function toTalk($p) {		
-		// say something
+		// message
 		echo $this->person.' says: '.$this->getRandomQuote().$p.'<br />';
 		// replay
-		$character = new CartoonPerson($p);
-		$character->toTalk($this->person);
+		if ($this->looper == true) {
+			$pPerson = new CartoonPerson($p);
+			$pPerson->looper = false;  		// Problem #5: prevent infinite loop changing the looper flag
+			$pPerson->toTalk($this->person);	
+		}
 	}
 
 }
