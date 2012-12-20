@@ -12,6 +12,8 @@
 // CartoonPerson class
 class CartoonPerson {
 	// create cartoon person instance variable / property
+	
+	//@FIXME: variable name not explicit enough...
 	private $person;
 	private $character;
 	private $quote;
