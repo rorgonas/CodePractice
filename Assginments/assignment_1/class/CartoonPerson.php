@@ -54,7 +54,7 @@ class CartoonPerson {
 	private function __construct3($person, $character, $quote) {
 		$this->person = $person;
 		$this->character = $character;
-		$this->quotes = $quote;
+		array_push($this->quotes, $quote);
 	}
 
 	// Show CartoonPerson object with echo for test
@@ -87,7 +87,7 @@ class CartoonPerson {
 class WriteMessage extends CartoonPerson {
 	public static function main() {
 		$homi = new CartoonPerson('Homer');
-		$lizi = new CartoonPerson('Lisa', 'sad');
+		$lizi = new CartoonPerson('Lisa', 'sad', 'What is this?');
 		$barti = new CartoonPerson('Bart');
 		$margi = new CartoonPerson('Marge');
 
