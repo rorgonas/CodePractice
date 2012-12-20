@@ -15,23 +15,21 @@ class CartoonPerson {
 	public $wife;
 	public $boy;
 	public $girl;
-	public $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane, ');
+	public $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');
 
-	public function __constructor($person) {
+	public function __construct($person) {
 		$this->person = $person;
-		$this->_constructor();  // call second constructor
+		$this->_construct();  // call second constructor
 	}
 
-	// ToDo: Add one more constructor but how?
-	public function _constructor() {
-		// what to do here?
-	}
+	// ToDo: Add one more constructor
+	// Cannot redeclare __construct() in the class
 
 	// Create toTalk method
 	public function toTalk($p) {
 		$random_quote_index = array_rand($this->quotes);
-		$message = $this->quotes[$random_quote_index];
-		echo $this->person.' says: '.$message.$p.'<br />';
+		$message_to = $this->quotes[$random_quote_index];
+		echo $this->person.' says: '.$message_to.$p.'<br />';
 	}
 
 }
