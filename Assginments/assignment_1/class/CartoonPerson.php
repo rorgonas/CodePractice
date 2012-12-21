@@ -114,7 +114,7 @@ class CartoonPerson {
 	}
 
 	/**
-	 * CheckTalk State - only for test
+	 * Get Talk State - checker helper only for test
 	 */
 	public function getTalkState() {
 		return ($this->has_talked) ? '1' : '0';
