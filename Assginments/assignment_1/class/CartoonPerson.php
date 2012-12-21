@@ -25,8 +25,8 @@ class CartoonPerson {
 	// Create a list of quotes
 	private $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');	
 
-	// Create looper flag to prevent infinite loop when calling the talker method
-	private $has_talked; //Prevent infinite loop when talker method is called
+	// Create flag to prevent infinite loop when talker method was called once
+	private $has_talked;
 
 	// Constructor
 	public function __construct($name = null,
@@ -46,6 +46,7 @@ class CartoonPerson {
 		$this->favorite_dish = $favorite_dish;
 		$this->family_relationship = $family_relationship;
 		$this->is_bald = $is_bald;	
+		$this->has_talked = false;
 	}
 
 	/**
@@ -104,15 +105,6 @@ class CartoonPerson {
 		return $this->name;
 	}
 
-
-	public function hasAlreadyTalked() {
-		return $this->has_talked;
-	}
-
-	public function nowTalks() {
-		return $this->has_talked = true;
-	}
-
 	/**
 	 * Get Talk State - checker helper only for test
 	 */
@@ -120,11 +112,13 @@ class CartoonPerson {
 		return ($this->has_talked) ? '1' : '0';
 	}
 
-	/**
-	 * Set Talk State back to false - TalkState reset every time when person response to message
+	/** 
+	 * Set Talk State
+	 * @param $state = true - the Person now talks
+	 * @param $state = false - the Person has already talked
 	 */
-	public function setTalkState() {
-		$this->has_talked = false;
+	public function setTalkState($state) {
+		$this->has_talked = ($state == 1) ? true : false;
 	}
 
 	/**
@@ -140,12 +134,12 @@ class CartoonPerson {
 	 */
 	public function talksTo(CartoonPerson $p) {		
 	 
-		if (!$this->hasAlreadyTalked()) {	// if character has not talked yet		
-			$this->nowTalks(); 				// this character is now talking
+		if (!$this->has_talked) {	// if character has not talked yet		
+			$this->setTalkState(1);				// this character is now talking: $state = true
 			echo $this->name . ' (the ' . $this->getFamilyRelationship(). ' who\'s ' . $this->getAge() . ' years old) says: "' . $this->getRandomQuote() . '" to ' . $p->getName() . "<br />";
 			$p->talksTo($this);	// $this being and instance of CartoonPerson as expected by function
 		}
-		$this->setTalkState();
+		$this->setTalkState(0); // reset Talk State: $state = false;
 	}
 }
 
