@@ -104,18 +104,27 @@ class CartoonPerson {
 		return $this->name;
 	}
 
-	/**
-	 * 
-	 */
+
 	public function hasAlreadyTalked() {
 		return $this->has_talked;
 	}
 
-	/**
-	 *
-	 */
 	public function nowTalks() {
 		return $this->has_talked = true;
+	}
+
+	/**
+	 * CheckTalk State - only for test
+	 */
+	public function getTalkState() {
+		return ($this->has_talked) ? '1' : '0';
+	}
+
+	/**
+	 * Set Talk State back to false - TalkState reset every time when person response to message
+	 */
+	public function setTalkState() {
+		$this->has_talked = false;
 	}
 
 	/**
@@ -136,9 +145,9 @@ class CartoonPerson {
 			echo $this->name . ' (the ' . $this->getFamilyRelationship(). ' who\'s ' . $this->getAge() . ' years old) says: "' . $this->getRandomQuote() . '" to ' . $p->getName() . "<br />";
 			$p->talksTo($this);	// $this being and instance of CartoonPerson as expected by function
 		}
+		$this->setTalkState();
 	}
 }
-
 
 // Writer class
 class WriteMessage {
@@ -153,6 +162,11 @@ class WriteMessage {
 		//$margi = new CartoonPerson('Marge', 33, 'female');
 		$apu = new CartoonPerson('Apu');
 
+		// Check TalkState after every CartoonPerson instance was created
+		// echo "State: ". $homi->getTalkState();
+		// echo "State: ". $barti->getTalkState();
+		// echo "State: ". $apu->getTalkState();
+
 		// List of converation between 2 persons
 		echo "<pre>Conversation 1:</pre>";
 		$homi->talksTo($barti);
@@ -162,6 +176,11 @@ class WriteMessage {
 
 		echo "<pre>Conversation 3:</pre>";
 		$apu->talksTo($homi);
+
+		// Check TalkState after talksTo is called in the class again
+		// echo "State: ". $homi->getTalkState();
+		// echo "State: ". $barti->getTalkState();
+		// echo "State: ". $apu->getTalkState();
 	}
 }
 
