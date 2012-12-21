@@ -12,71 +12,129 @@
 // CartoonPerson class
 class CartoonPerson {
 
-	// Create 4 instance variables representing the main characters
+	// Create instance variables representing the main characters
 	private $name;
 	private $age;
-	private $sex;
+	private $gender;
 	private $weight;
+	private $height;
+	private $favorite_dish;
+	private $family_relationship;
+	private $is_bald;
 
 	// Create a list of quotes
 	private $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');	
 
 	// Create looper flag to prevent infinite loop when calling the talker method
-	private $looper = true;
+	private $has_talked; //Prevent infinite loop when talker method is called
 
 	// Constructor
-	public function __construct() {
-		$argument = func_get_args();
-		switch (func_num_args()) {
-			case 2:
-				$this->__construct2($argument[0],$argument[1]);
-				break;
-			case 3:
-				$this->__construct3($argument[0],$argument[1],$argument[2]);
-				break;
-			default:
-				$this->__construct1($argument[0]);
-				break;
-		}		
-	}
-
-	// Add 3 Constructor methods accepting 1, 2, or 3 number of arguments
-	private function __construct1($name) {
-		$this->name = $name;
-	}
-
-	private function __construct2($name, $age) {
+	public function __construct($name = null,
+								$age = 'uncertain',
+								$gender = null,
+								$weight = null,
+								$height = null,
+								$favorite_dish = null,
+								$family_relationship = 'unknow',
+								$is_bald = false
+	) {
 		$this->name = $name;
 		$this->age = $age;
+		$this->gender = $gender;
+		$this->weight = $weight;
+		$this->height = $height;
+		$this->favorite_dish = $favorite_dish;
+		$this->family_relationship = $family_relationship;
+		$this->is_bald = $is_bald;	
 	}
 
-	private function __construct3($name, $age, $quote) {
-		$this->name = $name;
-		$this->age = $age;
-		array_push($this->quotes, $quote);
+	/**
+	 * Name getter
+	 */
+	public function getName() {
+		return $this->name;
 	}
 
-	// Show CartoonPerson object with echo for test
+	/**
+	 * Name setter
+	 */
+	public function setName($n) {
+		$this->name = $n;
+	}
+
+	/**
+	 * Age getter
+	 */
+	public function getAge() {
+		return $this->age;
+	}
+
+	/**
+	 * Gender getter
+	 */
+	public function getGender() {
+		return $this->gender;
+	}
+
+	/**
+	 * Height getter
+	 */
+	public function getHeight() {
+		return $this->height;
+	}
+
+	/**
+	 * Family relationship getter
+	 */
+	public function getFamilyRelationship() {
+		return $this->family_relationship;
+	}
+
+	/**
+	 * Is bald state
+	 */
+	public function isBald() {
+		return $this->isBald;
+	}
+
+	/**
+	 * Show CartoonPerson object with echo for test
+	 */
 	public function __toString() {
 		return $this->name;
 	}
 
-	// Get random quotes
+	/**
+	 * 
+	 */
+	public function hasAlreadyTalked() {
+		return $this->has_talked;
+	}
+
+	/**
+	 *
+	 */
+	public function nowTalks() {
+		return $this->has_talked = true;
+	}
+
+	/**
+	 * Get random quotes
+	 */
 	private function getRandomQuote() {
 		$random_key = array_rand($this->quotes);
 		return $this->quotes[$random_key];
 	}
 
-	// Create talker method
-	public function toTalk($p) {		
-		// message
-		echo $this->name.' says: '.$this->getRandomQuote().$p.'<br />';
-
-		// replay
-		if ($this->looper == true) {
-			// Problem #5: prevent infinite loop overwriting the looper flag from CartoonPerson class
-			$p->looper = false;
-			$p->toTalk($this);	
+	/**
+	 * Create talker method
+	 */
+	public function talksTo(CartoonPerson $p) {		
+	 
+		if (!$this->hasAlreadyTalked()) {	// if character has not talked yet		
+			$this->nowTalks(); 				// this character is now talking
+			echo $this->name . ' (the ' . $this->getFamilyRelationship(). ' who\'s ' . $this->getAge() . ' years old) says: "' . $this->getRandomQuote() . '" to ' . $p->getName() . "<br />";
+			$p->talksTo($this);	// $this being and instance of CartoonPerson as expected by function
 		}
 	}
 }
@@ -85,18 +143,25 @@ class CartoonPerson {
 // Writer class
 class WriteMessage {
 	public static function main() {
-		$homi = new CartoonPerson('Homer');
-		$lizi = new CartoonPerson('Lisa', '43', 'What is this?');
-		$barti = new CartoonPerson('Bart');
-		$margi = new CartoonPerson('Marge');
+		/**
+		 * CartoonPerson class instance variable list: 
+		 * @param $name, $age, $gender, $weight, $height, $favorite_dish, $family_relationship, $is_bald
+		 */
+		$homi = new CartoonPerson('Homer', '36', 'male', '260pounds','165cm', 'chicken nuggets', 'father', true);
+		//$lizi = new CartoonPerson('Lisa', 10);
+		$barti = new CartoonPerson('Bart', 15, 'male', '', '150cm', 'pop corns', 'sun');
+		//$margi = new CartoonPerson('Marge', 33, 'female');
+		$apu = new CartoonPerson('Apu');
 
-		// Homer ($homi) talks with Bart ($barti). Homer and Bart are Objects instances of CartoonPerson class
-		$homi->toTalk($barti);
-		//echo $homi;
-		//echo $barti;
+		// List of converation between 2 persons
+		echo "<pre>Conversation 1:</pre>";
+		$homi->talksTo($barti);
+		
+		echo "<pre>Conversation 2:</pre>";
+		$homi->talksTo($barti);
 
-		// Lisa talks with Marge. They are alos Objects instances of CartoonPerson class
-		$lizi->toTalk($margi);
+		echo "<pre>Conversation 3:</pre>";
+		$apu->talksTo($homi);
 	}
 }
 
