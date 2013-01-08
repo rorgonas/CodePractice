@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<string>
+	<function>
+		<name>concat</name>
+		<syntax>.</syntax>
+		<description>Concatenate multiple strings</description>
+		<code>
+			<sample>text1.text2</sample>
+		</code>
+	</function>
+	<function>
+		<name>length</name>
+		<syntax>strlen($txt1)</syntax>
+		<description>Calculate string length</description>
+		<code>
+			<sample>sample 1</sample>
+		</code>
+	</function>
+	<function>
+		<name>split</name>
+		<syntax>str_split($txt1)</syntax>
+		<description>Convert String into Array</description>
+		<code>
+			<sample>sample 2</sample>
+			<sample>sample 3</sample>
+		</code>
+	</function>
+</string>

@@ -2,30 +2,33 @@
 <html>
 	<head>
 		<title>String Manipulation</title>
+		<script type="text/javascript" src="script.js"></script>
 	</head>
 	<body>
 		<form>			
 			<fieldset>
-				<legend>choose a string function</legend>
-				<select name="strings">
-					<option value ="1">concatenation</option>
-					<option value ="2">get length</option>
-					<option value ="3">split</option>
-				</select>
-				<input type="submit" value="Display" />
+				<legend>String Functions</legend>
+				<select name="action">
+					<option value ="">What to do ...</option>
+					<option value ="concat">Concat</option>
+					<option value ="length">Get length</option>
+					<option value ="split">Split</option>
+				</select>				
 			</fieldset>
 		</form>
-		
+		<div id="hint"></div>
 		
 		<?php 
+
 			/**
 			 * Build class to showcase diff predefined String functions
 			 */
-			class StringShow {
+			class StringFunctions {
 				
 				private $name;
 				private $syntax;
 				private $example;
+				private $code_sample;
 
 				public function __construct() {
 					// todo
