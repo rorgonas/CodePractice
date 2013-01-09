@@ -14,37 +14,45 @@ require_once "classes/CartoonPerson.php";
 // HomerPerson class
 class HomerPerson extends CartoonPerson{
 	
-	// Create instance variable for person's private quote
-	private $private_quote = 'Why you little';
-	private $crazy_language;
+	protected $message;
 
-	/**
-	 * Second implementation: Overide getRandomQuotes() method with this private quote
-	 */
 	protected function getRandomQuote() {
-		return $this->quotes = $this->transform();
+		$key = array_rand($this->quotes);
+		$quote = $this->quotes[$key];
+		
+		return $this->buildCrazyLanguage($quote);
 	}
 
-	private function transform() {
-		// Replace 'e' by 'y'
-		$crazy_quote = str_replace('e','y', $this->private_quote);
+	private function buildCrazyLanguage($quote) {
+		$quote = $this->replaceLetters($quote);
+		return $this->cutLetters($quote);
+	}
 
-		// Split every word into array
-		$quote_array = explode(' ', $crazy_quote);
-		var_dump($quote_array);
+	// Replace in quote 'e' by 'y'
+	private function replaceLetters($str) {
+		return str_replace('e','y', $str);
+	}
+
+	// Build Crazy Language
+	private function cutLetters($quote) {
+		$quote_array = explode(' ',$quote);
+		// var_dump($quote_array);
 
 		// Cut first and last letter from each word
 		foreach ($quote_array as $key=>$value) {
 			$newString = substr($value, 1,-1);
 			$quote_array[$key] = $newString;
 		}
-		var_dump($quote_array);
+		// var_dump($quote_array);
+		echo "The number of words said by Homer is: ". count($quote_array) ."</br >";
 
-		$count_words = count($quote_array);
-		echo "The number of words said by Homer is: ".$count_words."</br >";
+		return $this->message = implode(" ", $quote_array);
+	}
 
-		$this->crazy_language = $crazy_quote;
-		return $this->crazy_language;
+	// Display with capital letters
+	public function displayMessage() {
+		echo "The encoded message is: ";
+		print_r(strtoupper($this->message));
 	}
 }
 
