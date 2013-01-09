@@ -23,7 +23,7 @@ class CartoonPerson {
 	private $is_bald;
 
 	// Create a list of quotes
-	private $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!');	
+	protected $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!', 'Why you little...');	
 
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
@@ -124,7 +124,7 @@ class CartoonPerson {
 	/**
 	 * Get random quotes
 	 */
-	private function getRandomQuote() {
+	protected function getRandomQuote() {
 		$random_key = array_rand($this->quotes);
 		return $this->quotes[$random_key];
 	}
@@ -142,44 +142,6 @@ class CartoonPerson {
 		$this->setTalkState(0); // reset Talk State: $state = false;
 	}
 }
-
-// Writer class
-class WriteMessage {
-	public static function main() {
-		/**
-		 * CartoonPerson class instance variable list: 
-		 * @param $name, $age, $gender, $weight, $height, $favorite_dish, $family_relationship, $is_bald
-		 */
-		$homi = new CartoonPerson('Homer', '36', 'male', '260pounds','165cm', 'chicken nuggets', 'father', true);
-		//$lizi = new CartoonPerson('Lisa', 10);
-		$barti = new CartoonPerson('Bart', 15, 'male', '', '150cm', 'pop corns', 'sun');
-		//$margi = new CartoonPerson('Marge', 33, 'female');
-		$apu = new CartoonPerson('Apu');
-
-		// Check TalkState after every CartoonPerson instance was created
-		// echo "State: ". $homi->getTalkState();
-		// echo "State: ". $barti->getTalkState();
-		// echo "State: ". $apu->getTalkState();
-
-		// List of converation between 2 persons
-		echo "<pre>Conversation 1:</pre>";
-		$homi->talksTo($barti);
-		
-		echo "<pre>Conversation 2:</pre>";
-		$homi->talksTo($barti);
-
-		echo "<pre>Conversation 3:</pre>";
-		$apu->talksTo($homi);
-
-		// Check TalkState after talksTo is called in the class again
-		// echo "State: ". $homi->getTalkState();
-		// echo "State: ". $barti->getTalkState();
-		// echo "State: ". $apu->getTalkState();
-	}
-}
-
-// Do some Messaging
-WriteMessage::main();
 
 
 
