@@ -128,9 +128,16 @@ class CartoonPerson {
 	 * Get random quotes
 	 */
 	protected function getRandomQuote() {
+		$this->setRandomQuote();
+		return $this->message;
+	}
+
+	/**
+	 * Set random quotes
+	 */
+	protected function setRandomQuote() {
 		$key = array_rand($this->quotes);
 		$this->message = $this->quotes[$key];
-		return $this->message;
 	}
 
 	/**

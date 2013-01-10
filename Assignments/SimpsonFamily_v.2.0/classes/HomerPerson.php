@@ -14,12 +14,9 @@ require_once "classes/CartoonPerson.php";
 // HomerPerson class
 class HomerPerson extends CartoonPerson{
 	
-	protected $message;
-
 	protected function getRandomQuote() {
 		$key = array_rand($this->quotes);
 		$quote = $this->quotes[$key];
-		
 		return $this->buildCrazyLanguage($quote);
 	}
 
