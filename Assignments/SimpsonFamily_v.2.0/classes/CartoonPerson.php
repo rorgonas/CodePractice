@@ -23,10 +23,7 @@ class CartoonPerson {
 	private $is_bald;
 
 	// Create a list of quotes
-	protected $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!', 'Why you little...');
-	
-	// Save a random quote in this instance variable
-	protected $message;	
+	protected $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!', 'Why you little...');	
 
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
@@ -128,33 +125,18 @@ class CartoonPerson {
 	 * Get random quotes
 	 */
 	protected function getRandomQuote() {
-		$this->setRandomQuote();
-		return $this->message;
-	}
-
-	/**
-	 * Set random quotes
-	 */
-	protected function setRandomQuote() {
-		$key = array_rand($this->quotes);
-		$this->message = $this->quotes[$key];
+		$random_key = array_rand($this->quotes);
+		return $this->quotes[$random_key];
 	}
 
 	/**
 	 * Create talker method
 	 */
 	public function talksTo(CartoonPerson $p) {		
-	 	$output = '';
+	 
 		if (!$this->has_talked) {	// if character has not talked yet		
 			$this->setTalkState(1);				// this character is now talking: $state = true
-			
-			$output .= $this->name;
-			$output .= ' (the ' . $this->getFamilyRelationship();
-			$output .= ' who\'s ' . $this->getAge();
-			$output .= ' years old) says: "' . $this->getRandomQuote();
-			$output .= '" to ' . $p->getName() . "<br />";
-			echo $output;
-			
+			echo $this->name . ' (the ' . $this->getFamilyRelationship(). ' who\'s ' . $this->getAge() . ' years old) says: "' . $this->getRandomQuote() . '" to ' . $p->getName() . "<br />";
 			$p->talksTo($this);	// $this being and instance of CartoonPerson as expected by function
 		}
 		$this->setTalkState(0); // reset Talk State: $state = false;

@@ -37,19 +37,18 @@ class WriteMessages {
 		// List of converation between 2 persons
 		echo "<pre>First conversation between Homer and Bart:</pre>";
 		$homer->talksTo($bart);
-		$homer->displayMessage();
 		
-		// echo "<pre>Second conversation between Homer and Bart:</pre>";
-		// $homer->talksTo($bart);
+		echo "<pre>Second conversation between Homer and Bart:</pre>";
+		$homer->talksTo($bart);
 
-		// echo "<pre>Conversation between Bart and Homer:</pre>";
-		// $bart->talksTo($homer);
+		echo "<pre>Conversation between Bart and Homer:</pre>";
+		$bart->talksTo($homer);
 
-		// echo "<pre>Conversation between Apu and Homer:</pre>";
-		// $apu->talksTo($homer);
+		echo "<pre>Conversation between Apu and Homer:</pre>";
+		$apu->talksTo($homer);
 
-		// echo "<pre>Conversation between Lisa and Marge:</pre>";
-		// $lisa->talksTo($bart);
+		echo "<pre>Conversation between Lisa and Marge:</pre>";
+		$lisa->talksTo($bart);
 
 		// Check TalkState after talksTo is called in the class again
 		// echo "State: ". $homi->getTalkState();
