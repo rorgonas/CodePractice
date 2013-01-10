@@ -13,7 +13,7 @@
 class CartoonPerson {
 
 	// Create instance variables representing the main characters
-	protected $name;
+	private $name;
 	private $age;
 	private $gender;
 	private $weight;
@@ -26,7 +26,8 @@ class CartoonPerson {
 	protected $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!', 'Why you little...');
 	
 	// Save a random quote in this instance variable
-	protected $message;	
+	protected $message;
+	protected $message_type = null;
 
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
@@ -55,63 +56,72 @@ class CartoonPerson {
 	/**
 	 * Name getter
 	 */
-	public function getName() {
+	public function getName() 
+	{
 		return $this->name;
 	}
 
 	/**
 	 * Name setter
 	 */
-	public function setName($n) {
+	public function setName($n) 
+	{
 		$this->name = $n;
 	}
 
 	/**
 	 * Age getter
 	 */
-	public function getAge() {
+	public function getAge() 
+	{
 		return $this->age;
 	}
 
 	/**
 	 * Gender getter
 	 */
-	public function getGender() {
+	public function getGender() 
+	{
 		return $this->gender;
 	}
 
 	/**
 	 * Height getter
 	 */
-	public function getHeight() {
+	public function getHeight() 
+	{
 		return $this->height;
 	}
 
 	/**
 	 * Family relationship getter
 	 */
-	public function getFamilyRelationship() {
+	public function getFamilyRelationship() 
+	{
 		return $this->family_relationship;
 	}
 
 	/**
 	 * Is bald state
 	 */
-	public function isBald() {
+	public function isBald() 
+	{
 		return $this->isBald;
 	}
 
 	/**
 	 * Show CartoonPerson object with echo for test
 	 */
-	public function __toString() {
+	public function __toString() 
+	{
 		return $this->name;
 	}
 
 	/**
 	 * Get Talk State - checker helper only for test
 	 */
-	public function getTalkState() {
+	public function getTalkState() 
+	{
 		return ($this->has_talked) ? '1' : '0';
 	}
 
@@ -120,32 +130,53 @@ class CartoonPerson {
 	 * @param $state = true - the Person now talks
 	 * @param $state = false - the Person has already talked
 	 */
-	public function setTalkState($state) {
+	public function setTalkState($state) 
+	{
 		$this->has_talked = ($state == 1) ? true : false;
 	}
 
 	/**
 	 * Get random quotes
 	 */
-	protected function getRandomQuote() {
-		$this->setRandomQuote();
+	protected function getRandomQuote() 
+	{
+		$key = array_rand($this->quotes);
+		$this->message = $this->quotes[$key];
+		
 		return $this->message;
 	}
 
 	/**
 	 * Set random quotes
 	 */
-	protected function setRandomQuote() {
-		$key = array_rand($this->quotes);
-		$this->message = $this->quotes[$key];
+	protected function setRandomQuote($str) 
+	{
+		$this->message = $str;
+	}
+
+	/**
+	 * Get Crazy Language
+	 */
+	protected function transformQuote($quote) 
+	{
+		$quote = str_replace('e','y', $quote);
+		$quote_array = explode(' ',$quote);
+		//var_dump($quote_array);
+		foreach ($quote_array as $key=>$value) {
+			$quote_array[$key] = substr($value, 1,-1);
+		}
+		//var_dump($quote_array);
+		return $this->message = implode(" ", $quote_array);
 	}
 
 	/**
 	 * Create talker method
 	 */
-	public function talksTo(CartoonPerson $p) {		
+	public function talksTo(CartoonPerson $p) 
+	{		
 	 	$output = '';
-		if (!$this->has_talked) {	// if character has not talked yet		
+	 	
+		if (!$this->has_talked) {	            // if character has not talked yet		
 			$this->setTalkState(1);				// this character is now talking: $state = true
 			
 			$output .= $this->name;
@@ -153,12 +184,13 @@ class CartoonPerson {
 			$output .= ' who\'s ' . $this->getAge();
 			$output .= ' years old) says: "' . $this->getRandomQuote();
 			$output .= '" to ' . $p->getName() . "<br />";
-			echo $output;
 			
-			$p->talksTo($this);	// $this being and instance of CartoonPerson as expected by function
+			echo $output;
+			$p->talksTo($this);		// $this being and instance of CartoonPerson as expected by function
 		}
-		$this->setTalkState(0); // reset Talk State: $state = false;
+		$this->setTalkState(0); 				// reset Talk State: $state = false;
 	}
+
 }
 
 
