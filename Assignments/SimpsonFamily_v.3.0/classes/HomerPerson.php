@@ -53,4 +53,14 @@ class HomerPerson extends CartoonPerson{
 	}
 }
 
+interface CrazyLanguage {
+	public function transformLanguage();
+}
+
+class HomerPerson implements CrazyLanguage {
+	function tranformLanguage() {
+		echo 'Homer will speak crazy language';
+	}
+}
+
 ?>
