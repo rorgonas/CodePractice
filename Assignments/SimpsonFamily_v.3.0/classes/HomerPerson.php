@@ -14,16 +14,24 @@ require_once "classes/CartoonPerson.php";
 // HomerPerson class
 class HomerPerson extends CartoonPerson{
 	
-	// protected $quote;
+	protected $quote;
 
-	protected function getRandomQuote() 
-	{
-		return $this->message = $this->transformQuote("dfgd dfgdfg dfgdfg");
+	// protected function getRandomQuote() 
+	// {
+	// 	return $this->setRandomQuote('gad fgadf');
+	// }
+	public function __construct() {
+		echo "dummy test";
+		if ($this->message == null){
+			echo "message is NULL";
+			echo parent::getRandomQuote();
+		}
 	}
 
 	private function calculateWordsNumber() 
 	{
-		$this->words = substr_count($this->message, " ") + 1;var_dump($this->message);
+		var_dump($this->message);
+		$this->words = substr_count($this->message, " ") + 1;
 		return $this->words;
 	}
 

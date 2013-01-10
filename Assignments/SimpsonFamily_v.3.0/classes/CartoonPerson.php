@@ -27,8 +27,7 @@ class CartoonPerson {
 	
 	// Save a random quote in this instance variable
 	protected $message;
-	protected $message_type = null;
-
+	
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
 
