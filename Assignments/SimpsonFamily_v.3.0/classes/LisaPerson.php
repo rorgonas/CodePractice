@@ -2,10 +2,10 @@
 
 
 /**
- * OOP Assignment #2
+ * OOP Assignment #3
  *
  * @author Rolland Orgonas I.
- * @copyright 2012 Teksystems MSC
+ * @copyright 2013 Teksystems MSC
  */
 
 
@@ -14,16 +14,12 @@
 // Writer class
 class LisaPerson extends CartoonPerson {
 	
-	// Create instance variable for person's private quote
-	private $private_quote = 'Bart, you\'re cheating!';
-
 	/**
-	 * Second implementation: Overide getRandomQuotes() method with this private quote
+	 * Create instance variable for person's private quote
+	 * This property is overwritten by transformQuote() method in the base class
 	 */
-	protected function getRandomQuote() {
+	// private $private_quote = 'Bart, you\'re cheating!';
 
-		return $this->quotes = $this->private_quote;
-	}
 }
 
 ?>

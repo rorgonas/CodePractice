@@ -2,10 +2,10 @@
 
 
 /**
- * OOP Assignment #1
+ * OOP Assignment #3
  *
  * @author Rolland Orgonas I.
- * @copyright 2012 Teksystems MSC
+ * @copyright 2013 Teksystems MSC
  */
 
 
@@ -27,7 +27,10 @@ class CartoonPerson {
 	
 	// Save a random quote in this instance variable
 	protected $message;
-	
+
+	// Count all words in a crazy qouts 
+	protected $count_words;
+
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
 
@@ -140,9 +143,8 @@ class CartoonPerson {
 	protected function getRandomQuote() 
 	{
 		$key = array_rand($this->quotes);
-		$this->message = $this->quotes[$key];
-		
-		return $this->message;
+		$quote = $this->quotes[$key];
+		return $this->transformQuote($quote);
 	}
 
 	/**
@@ -154,18 +156,29 @@ class CartoonPerson {
 	}
 
 	/**
-	 * Get Crazy Language
+	 * Get random quotes
+	 */
+	protected function getCrazyQuoteWords() 
+	{		
+		return $this->count_words = str_word_count($this->message);
+	}
+
+	/**
+	 * Get Crazy Language: transform string
 	 */
 	protected function transformQuote($quote) 
 	{
 		$quote = str_replace('e','y', $quote);
 		$quote_array = explode(' ',$quote);
-		//var_dump($quote_array);
+		// var_dump($quote_array);
 		foreach ($quote_array as $key=>$value) {
 			$quote_array[$key] = substr($value, 1,-1);
 		}
-		//var_dump($quote_array);
-		return $this->message = implode(" ", $quote_array);
+		// var_dump($quote_array);
+		$quote = implode(" ", $quote_array);
+		$this->setRandomQuote($quote);
+
+		return $quote;
 	}
 
 	/**
@@ -189,6 +202,17 @@ class CartoonPerson {
 		}
 		$this->setTalkState(0); 				// reset Talk State: $state = false;
 	}
+
+	public function getMessageInfo() 
+	{
+	  	$output = "<h3>" .$this->getName(). " message info:</h3>";
+		$output .= $this->getName(). " only said ". $this->getCrazyQuoteWords() ." words!</br >";
+		$output .=  "The crazy language of " .$this->getName(). " is displayed in Capital Letters : ";
+
+		echo $output;
+		print_r(strtoupper($this->message));
+	}
+
 
 }
 

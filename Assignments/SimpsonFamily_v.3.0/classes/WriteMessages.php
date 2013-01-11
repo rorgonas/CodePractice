@@ -2,10 +2,10 @@
 
 
 /**
- * OOP Assignment #1
+ * OOP Assignment #3
  *
  * @author Rolland Orgonas I.
- * @copyright 2012 Teksystems MSC
+ * @copyright 2013Teksystems MSC
  */
 
 
@@ -37,19 +37,29 @@ class WriteMessages {
 		// List of converation between 2 persons
 		echo "<pre>First conversation between Homer and Bart:</pre>";
 		$homer->talksTo($bart);
-		$homer->displayMessage();
+		$homer->getMessageInfo();
+
 		
-		// echo "<pre>Second conversation between Homer and Bart:</pre>";
-		// $homer->talksTo($bart);
+		echo "<pre>Second conversation between Homer and Bart:</pre>";
+		$homer->talksTo($bart);
+		$homer->getMessageInfo();
+		$bart->getMessageInfo();
+
 
 		// echo "<pre>Conversation between Bart and Homer:</pre>";
 		// $bart->talksTo($homer);
+		//$bart->getMessageInfo();
+
 
 		// echo "<pre>Conversation between Apu and Homer:</pre>";
 		// $apu->talksTo($homer);
+		//$apu->getMessageInfo();
 
+		
 		// echo "<pre>Conversation between Lisa and Marge:</pre>";
 		// $lisa->talksTo($bart);
+		//$lisa->getMessageInfo();
+
 
 		// Check TalkState after talksTo is called in the class again
 		// echo "State: ". $homi->getTalkState();
