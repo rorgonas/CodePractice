@@ -1,3 +1,7 @@
+<?php 
+	require_once "classes/WriteMessages.php";
+?>
+
 <!Doctype html>
 <html>
 	<head>
@@ -22,11 +26,8 @@
 		</section>
 		<section>
 			<?php 
-				require_once "classes/WriteMessages.php";
-				
 				// Do some Messaging
 				WriteMessages::main();		
-
 			?>
 		</section>
 
