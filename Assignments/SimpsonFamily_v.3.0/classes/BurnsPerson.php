@@ -5,14 +5,14 @@
  * OOP Assignment #3
  *
  * @author Rolland Orgonas I.
- * @copyright 2013 Teksystems MSC
+ * @copyright 2013Teksystems MSC
  */
 
 
 //require_once "classes/CartoonPerson.php";
 
 // Writer class
-class ApuPerson extends CartoonPerson {
+class BurnsPerson extends CartoonPerson {
 	
 	// This person speaks plain language
 	protected $language = "cool";

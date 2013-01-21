@@ -15,6 +15,7 @@ require_once "classes/MargePerson.php";
 require_once "classes/BartPerson.php";
 require_once "classes/LisaPerson.php";
 require_once "classes/ApuPerson.php";
+require_once "classes/BurnsPerson.php";
 
 // Writer class
 class WriteMessages {
@@ -28,6 +29,7 @@ class WriteMessages {
 		$bart = new BartPerson('Bart', 15, 'male', '', '150cm', 'pop corns', 'sun');
 		$lisa = new LisaPerson('Lisa', 10);
 		$apu = new ApuPerson('Apu');
+		$burns = new BurnsPerson('Burn');
 
 		// Check TalkState after every CartoonPerson instance was created
 		// echo "State: ". $homer->getTalkState();
@@ -59,6 +61,11 @@ class WriteMessages {
 		// echo "<pre>Conversation between Lisa and Marge:</pre>";
 		// $lisa->talksTo($bart);
 		//$lisa->getMessageInfo();
+
+		echo "<pre>A conversation between Apu and Burns:</pre>";
+		$apu->talksTo($burns);
+		$burns->getMessageInfo();
+		$apu->getMessageInfo();
 
 
 		// Check TalkState after talksTo is called in the class again

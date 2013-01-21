@@ -34,6 +34,9 @@ class CartoonPerson {
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
 
+	// Controll the language
+	protected $language = 'crazy';
+
 	// Constructor
 	public function __construct($name = null,
 								$age = 'uncertain',
@@ -144,7 +147,13 @@ class CartoonPerson {
 	{
 		$key = array_rand($this->quotes);
 		$quote = $this->quotes[$key];
-		return $this->transformQuote($quote);
+		
+		if ($this->language == 'crazy'){
+			return $this->transformQuote($quote);
+		}
+		else {
+			return $this->message = $quote;
+		}
 	}
 
 	/**
@@ -158,7 +167,7 @@ class CartoonPerson {
 	/**
 	 * Get random quotes
 	 */
-	protected function getCrazyQuoteWords() 
+	protected function wordCounter() 
 	{		
 		return $this->count_words = str_word_count($this->message);
 	}
@@ -205,8 +214,8 @@ class CartoonPerson {
 
 	public function getMessageInfo() 
 	{
-	  	$output = "<h3>" .$this->getName(). " message info:</h3>";
-		$output .= $this->getName(). " only said ". $this->getCrazyQuoteWords() ." words!</br >";
+	  	$output = "<h3>" .$this->getName(). " chat:</h3>";
+		$output .= $this->getName(). " only said ". $this->wordCounter() ." words!</br >";
 		$output .=  "The crazy language of " .$this->getName(). " is displayed in Capital Letters : ";
 
 		echo $output;
