@@ -62,8 +62,12 @@ class WriteMessages {
 		// $lisa->talksTo($bart);
 		//$lisa->getMessageInfo();
 
-		echo "<pre>A conversation between Apu and Burns:</pre>";
-		$apu->talksTo($burns);
+		echo "<pre>Some can speake nice! Apu and Burns chat like:</pre>";
+		/** 
+		 * Also send a second param for language support. 
+		 * 	false:  NO translation! They speak a nice language
+		 */ 
+		$apu->talksTo($burns, false);
 		$burns->getMessageInfo();
 		$apu->getMessageInfo();
 

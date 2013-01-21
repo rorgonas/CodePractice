@@ -15,7 +15,7 @@
 class BurnsPerson extends CartoonPerson {
 	
 	// This person speaks plain language
-	protected $language = "cool";
+	// protected $language = "cool";
 
 }
 

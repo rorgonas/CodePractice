@@ -35,7 +35,7 @@ class CartoonPerson {
 	private $has_talked;
 
 	// Controll the language
-	protected $language = 'crazy';
+	protected $translate = true;  // By default translate everything to crazy language
 
 	// Constructor
 	public function __construct($name = null,
@@ -148,10 +148,12 @@ class CartoonPerson {
 		$key = array_rand($this->quotes);
 		$quote = $this->quotes[$key];
 		
-		if ($this->language == 'crazy'){
+		if ( $this->translate ){
+			// Translate conversation into crazy language
 			return $this->transformQuote($quote);
 		}
 		else {
+			// Plain language
 			return $this->message = $quote;
 		}
 	}
@@ -179,12 +181,16 @@ class CartoonPerson {
 	{
 		$quote = str_replace('e','y', $quote);
 		$quote_array = explode(' ',$quote);
+		
 		// var_dump($quote_array);
 		foreach ($quote_array as $key=>$value) {
 			$quote_array[$key] = substr($value, 1,-1);
 		}
+		
 		// var_dump($quote_array);
 		$quote = implode(" ", $quote_array);
+
+		// $this->message is the final quote
 		$this->setRandomQuote($quote);
 
 		return $quote;
@@ -193,9 +199,10 @@ class CartoonPerson {
 	/**
 	 * Create talker method
 	 */
-	public function talksTo(CartoonPerson $p) 
+	public function talksTo(CartoonPerson $p, $status = true) 
 	{		
 	 	$output = '';
+	 	$this->translate = $status; // @param: boolean - true for translation
 	 	
 		if (!$this->has_talked) {	            // if character has not talked yet		
 			$this->setTalkState(1);				// this character is now talking: $state = true
@@ -207,7 +214,7 @@ class CartoonPerson {
 			$output .= '" to ' . $p->getName() . "<br />";
 			
 			echo $output;
-			$p->talksTo($this);		// $this being and instance of CartoonPerson as expected by function
+			$p->talksTo($this, $status);		// $this being and instance of CartoonPerson as expected by function
 		}
 		$this->setTalkState(0); 				// reset Talk State: $state = false;
 	}
