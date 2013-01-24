@@ -37,39 +37,39 @@ class WriteMessages {
 		// echo "State: ". $apu->getTalkState();
 
 		// List of converation between 2 persons
-		echo "<pre>First conversation between Homer and Bart:</pre>";
+		echo "<h2>First conversation between Homer and Bart:</h2>";
 		$homer->talksTo($bart);
 		$homer->getMessageInfo();
 
 		
-		echo "<pre>Second conversation between Homer and Bart:</pre>";
+		echo "<h2>Second conversation between Homer and Bart:</h2>";
 		$homer->talksTo($bart);
 		$homer->getMessageInfo();
 		$bart->getMessageInfo();
 
 
-		// echo "<pre>Conversation between Bart and Homer:</pre>";
+		// echo "<h2>Conversation between Bart and Homer:</h2>";
 		// $bart->talksTo($homer);
 		//$bart->getMessageInfo();
 
 
-		// echo "<pre>Conversation between Apu and Homer:</pre>";
+		// echo "<h2>Conversation between Apu and Homer:</h2>";
 		// $apu->talksTo($homer);
 		//$apu->getMessageInfo();
 
 		
-		// echo "<pre>Conversation between Lisa and Marge:</pre>";
+		// echo "<h2>Conversation between Lisa and Marge:</h2>";
 		// $lisa->talksTo($bart);
 		//$lisa->getMessageInfo();
 
-		echo "<pre>Some can speake nice! Apu and Burns chat like:</pre>";
+		echo "<h2>Apu and Burns use normal language:</h2>";
 		/** 
 		 * Also send a second param for language support. 
 		 * 	false:  NO translation! They speak a nice language
 		 */ 
-		$apu->talksTo($burns, false);
-		$burns->getMessageInfo();
+		$apu->talksTo($burns);
 		$apu->getMessageInfo();
+		$burns->getMessageInfo();
 
 
 		// Check TalkState after talksTo is called in the class again

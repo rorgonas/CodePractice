@@ -10,7 +10,8 @@
 
 
 // CartoonPerson class
-class CartoonPerson {
+class CartoonPerson 
+{
 
 	// Create instance variables representing the main characters
 	private $name;
@@ -25,17 +26,11 @@ class CartoonPerson {
 	// Create a list of quotes
 	protected $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!', 'Why you little...');
 	
-	// Save a random quote in this instance variable
+	// Save a random quote
 	protected $message;
-
-	// Count all words in a crazy qouts 
-	protected $count_words;
 
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
-
-	// Controll the language
-	protected $translate = true;  // By default translate everything to crazy language
 
 	// Constructor
 	public function __construct($name = null,
@@ -59,56 +54,38 @@ class CartoonPerson {
 	}
 
 	/**
-	 * Name getter
+	 * Getters and Setters
 	 */
 	public function getName() 
 	{
 		return $this->name;
 	}
 
-	/**
-	 * Name setter
-	 */
 	public function setName($n) 
 	{
 		$this->name = $n;
 	}
 
-	/**
-	 * Age getter
-	 */
 	public function getAge() 
 	{
 		return $this->age;
 	}
 
-	/**
-	 * Gender getter
-	 */
 	public function getGender() 
 	{
 		return $this->gender;
 	}
 
-	/**
-	 * Height getter
-	 */
 	public function getHeight() 
 	{
 		return $this->height;
 	}
 
-	/**
-	 * Family relationship getter
-	 */
 	public function getFamilyRelationship() 
 	{
 		return $this->family_relationship;
 	}
 
-	/**
-	 * Is bald state
-	 */
 	public function isBald() 
 	{
 		return $this->isBald;
@@ -117,6 +94,7 @@ class CartoonPerson {
 	/**
 	 * Show CartoonPerson object with echo for test
 	 */
+
 	public function __toString() 
 	{
 		return $this->name;
@@ -125,6 +103,7 @@ class CartoonPerson {
 	/**
 	 * Get Talk State - checker helper only for test
 	 */
+
 	public function getTalkState() 
 	{
 		return ($this->has_talked) ? '1' : '0';
@@ -135,98 +114,97 @@ class CartoonPerson {
 	 * @param $state = true - the Person now talks
 	 * @param $state = false - the Person has already talked
 	 */
+
 	public function setTalkState($state) 
 	{
 		$this->has_talked = ($state == 1) ? true : false;
 	}
 
+	
 	/**
-	 * Get random quotes
+	 * Transform any random quote respecting predefined rules
+	 * @param:  $quote - a random quote
+	 * @return: $this->message - refactored & transformed quote
 	 */
-	protected function getRandomQuote() 
-	{
-		$key = array_rand($this->quotes);
-		$quote = $this->quotes[$key];
-		
-		if ( $this->translate ){
-			// Translate conversation into crazy language
-			return $this->transformQuote($quote);
-		}
-		else {
-			// Plain language
-			return $this->message = $quote;
-		}
-	}
 
-	/**
-	 * Set random quotes
-	 */
-	protected function setRandomQuote($str) 
-	{
-		$this->message = $str;
-	}
-
-	/**
-	 * Get random quotes
-	 */
-	protected function wordCounter() 
-	{		
-		return $this->count_words = str_word_count($this->message);
-	}
-
-	/**
-	 * Get Crazy Language: transform string
-	 */
 	protected function transformQuote($quote) 
 	{
-		$quote = str_replace('e','y', $quote);
+			// Replace chars and split string into arrays of word
+		$quote = str_replace('e','y', $quote);	
 		$quote_array = explode(' ',$quote);
 		
 		// var_dump($quote_array);
 		foreach ($quote_array as $key=>$value) {
 			$quote_array[$key] = substr($value, 1,-1);
-		}
-		
+		}		
 		// var_dump($quote_array);
-		$quote = implode(" ", $quote_array);
-
-		// $this->message is the final quote
-		$this->setRandomQuote($quote);
-
-		return $quote;
+			
+			// Rebuild the message and return it
+		return $this->message = implode(" ", $quote_array);
 	}
+
+	/**
+	 * Generate a random quote from the given quotes list
+	 */
+
+	protected function randomQuote() 
+	{
+		$i = array_rand($this->quotes);
+		return $this->quotes[$i];
+	}
+
+	/**
+	 * Return the chat message 
+	 */
+
+	protected function getPersonQuote() 
+	{
+		$this->message = $this->randomQuote();
+		return $this->transformQuote($this->message);		
+	}
+
+
+	/**
+	 * Count the words in a chat message
+	 * @return: $num - number of words in a message
+	 */
+
+	protected function wordCounter() 
+	{		
+		return $num = str_word_count($this->message);
+	}
+
 
 	/**
 	 * Create talker method
 	 */
-	public function talksTo(CartoonPerson $p, $status = true) 
+	public function talksTo(CartoonPerson $p) 
 	{		
 	 	$output = '';
-	 	$this->translate = $status; // @param: boolean - true for translation
-	 	
+	 		 	
 		if (!$this->has_talked) {	            // if character has not talked yet		
 			$this->setTalkState(1);				// this character is now talking: $state = true
 			
 			$output .= $this->name;
 			$output .= ' (the ' . $this->getFamilyRelationship();
 			$output .= ' who\'s ' . $this->getAge();
-			$output .= ' years old) says: "' . $this->getRandomQuote();
+			$output .= ' years old) says: "' . $this->getPersonQuote();
 			$output .= '" to ' . $p->getName() . "<br />";
 			
 			echo $output;
-			$p->talksTo($this, $status);		// $this being and instance of CartoonPerson as expected by function
+			$p->talksTo($this);		// $this being and instance of CartoonPerson as expected by function
 		}
 		$this->setTalkState(0); 				// reset Talk State: $state = false;
 	}
 
 	public function getMessageInfo() 
 	{
-	  	$output = "<h3>" .$this->getName(). " chat:</h3>";
+	  	$output  = "<h3>Message information</h3>";
 		$output .= $this->getName(). " only said ". $this->wordCounter() ." words!</br >";
-		$output .=  "The crazy language of " .$this->getName(). " is displayed in Capital Letters : ";
+		$output .= "The crazy language of " .$this->getName(). " is displayed in Capital Letters : ";
 
 		echo $output;
-		print_r(strtoupper($this->message));
+		print_r( strtoupper($this->message) );
 	}
 
 

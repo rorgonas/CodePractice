@@ -17,6 +17,11 @@ class BurnsPerson extends CartoonPerson {
 	// This person speaks plain language
 	// protected $language = "cool";
 
+	protected function getPersonQuote() 
+	{
+		$this->message = $this->randomQuote();
+		return $this->message;
+	}
 }
 
 ?>
