@@ -17,11 +17,13 @@ class BurnsPerson extends CartoonPerson {
 	// This person speaks plain language
 	// protected $language = "cool";
 
-	protected function getPersonQuote() 
-	{
-		$this->message = $this->randomQuote();
-		return $this->message;
-	}
+	// protected function getPersonQuote() 
+	// {
+	// 	parent::getPersonQuote();
+	// 	return $this->message;
+	// }
+
+	//public $transform_quote = false;
 }
 
 ?>

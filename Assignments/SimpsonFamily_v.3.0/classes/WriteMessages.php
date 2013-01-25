@@ -42,34 +42,36 @@ class WriteMessages {
 		$homer->getMessageInfo();
 
 		
-		echo "<h2>Second conversation between Homer and Bart:</h2>";
-		$homer->talksTo($bart);
-		$homer->getMessageInfo();
+		echo "<h2>Second conversation between Homer and Bart in ENCODED:</h2>";
+		// $homer->encodeTalk(true);
+		// $bart->encodeTalk(true);
+		$homer->talksTo($bart, true);
+		print_r($homer->getMessageInfo());
+		print_r($bart->getMessageInfo());
+
+
+		echo "<h2>Conversation between Bart and Homer:</h2>";
+		$bart->talksTo($homer);
 		$bart->getMessageInfo();
 
 
-		// echo "<h2>Conversation between Bart and Homer:</h2>";
-		// $bart->talksTo($homer);
-		//$bart->getMessageInfo();
-
-
-		// echo "<h2>Conversation between Apu and Homer:</h2>";
-		// $apu->talksTo($homer);
-		//$apu->getMessageInfo();
+		echo "<h2>Conversation between Apu and Homer:</h2>";
+		$apu->talksTo($homer);
+		$apu->getMessageInfo();
 
 		
-		// echo "<h2>Conversation between Lisa and Marge:</h2>";
-		// $lisa->talksTo($bart);
-		//$lisa->getMessageInfo();
+		echo "<h2>Conversation between Lisa and Marge:</h2>";
+		$lisa->talksTo($bart);
+		$lisa->getMessageInfo();
 
 		echo "<h2>Apu and Burns use normal language:</h2>";
 		/** 
 		 * Also send a second param for language support. 
 		 * 	false:  NO translation! They speak a nice language
-		 */ 
+		 */ 			
 		$apu->talksTo($burns);
-		$apu->getMessageInfo();
-		$burns->getMessageInfo();
+		print_r($apu->getMessageInfo());
+		print_r($burns->getMessageInfo());
 
 
 		// Check TalkState after talksTo is called in the class again

@@ -17,11 +17,13 @@ class ApuPerson extends CartoonPerson {
 	// This person speaks plain language
 	// protected $language = "cool";
 
-	protected function getPersonQuote() 
-	{
-		$this->message = $this->randomQuote();
-		return $this->message;
-	}
+	// public function getMessageInfo() 
+	// {
+	// 	parent::getMessageInfo();
+	// 	print_r( strtoupper( $this->transformQuote($this->message) ));
+	// }
+
+	//protected $transform_quote = false;
 
 }
 

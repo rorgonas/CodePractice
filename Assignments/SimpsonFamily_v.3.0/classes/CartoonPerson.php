@@ -26,8 +26,8 @@ class CartoonPerson
 	// Create a list of quotes
 	protected $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!', 'Why you little...');
 	
-	// Save a random quote
-	protected $message;
+	protected $message; // random quote
+	protected $encode; 	// true: encode messag
 
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
@@ -50,7 +50,9 @@ class CartoonPerson
 		$this->favorite_dish = $favorite_dish;
 		$this->family_relationship = $family_relationship;
 		$this->is_bald = $is_bald;	
+		
 		$this->has_talked = false;
+		$this->encode = false;
 	}
 
 	/**
@@ -129,18 +131,18 @@ class CartoonPerson
 
 	protected function transformQuote($quote) 
 	{
-			// Replace chars and split string into arrays of word
+		// Replace 'e' by 'y' chars 
+		// Split string into arrays of words
 		$quote = str_replace('e','y', $quote);	
 		$quote_array = explode(' ',$quote);
 		
-		// var_dump($quote_array);
+		// Trim each words
 		foreach ($quote_array as $key=>$value) {
 			$quote_array[$key] = substr($value, 1,-1);
 		}		
-		// var_dump($quote_array);
 			
-			// Rebuild the message and return it
-		return $this->message = implode(" ", $quote_array);
+		// Rebuild the message and return it
+		return strtoupper(implode(" ", $quote_array));
 	}
 
 	/**
@@ -153,14 +155,31 @@ class CartoonPerson
 		return $this->quotes[$i];
 	}
 
+
 	/**
 	 * Return the chat message 
 	 */
 
-	protected function getPersonQuote() 
+	protected function getQuote() 
 	{
-		$this->message = $this->randomQuote();
-		return $this->transformQuote($this->message);		
+		$msg = $this->randomQuote();
+
+		switch ($this->encode) {
+			case true:
+				$msg = $this->transformQuote($msg);
+				break;
+			
+			default:
+				// ...
+				break;
+		}
+		
+		$this->setQuote($msg);
+		return $msg;
+	}
+
+	protected function setQuote($msg) {
+		$this->message = $msg;
 	}
 
 
@@ -174,37 +193,47 @@ class CartoonPerson
 		return $num = str_word_count($this->message);
 	}
 
+	/**
+	 * Set talk mode
+	 */
+	public function encodeTalk($mode) {
+		$this->encode = $mode;
+	}
 
 	/**
 	 * Create talker method
 	 */
-	public function talksTo(CartoonPerson $p) 
+	public function talksTo(CartoonPerson $p, $mode = false) 
 	{		
-	 	$output = '';
 	 		 	
 		if (!$this->has_talked) {	            // if character has not talked yet		
-			$this->setTalkState(1);				// this character is now talking: $state = true
 			
-			$output .= $this->name;
+			// Config talk
+			$this->setTalkState(1);				// this character is now talking: $state = true
+			$this->encodeTalk($mode);			// How is talking it metters. Encode message when $mode = true
+
+			// Generate ouuput
+			$output  = $this->name;
 			$output .= ' (the ' . $this->getFamilyRelationship();
 			$output .= ' who\'s ' . $this->getAge();
-			$output .= ' years old) says: "' . $this->getPersonQuote();
+			$output .= ' years old) says: "' . $this->getQuote();
 			$output .= '" to ' . $p->getName() . "<br />";
 			
 			echo $output;
-			$p->talksTo($this);		// $this being and instance of CartoonPerson as expected by function
+			$p->talksTo($this, $mode);		// $this being and instance of CartoonPerson as expected by function
 		}
 		$this->setTalkState(0); 				// reset Talk State: $state = false;
 	}
 
 	public function getMessageInfo() 
 	{
-	  	$output  = "<h3>Message information</h3>";
+		$output = "<p>";
 		$output .= $this->getName(). " only said ". $this->wordCounter() ." words!</br >";
 		$output .= "The crazy language of " .$this->getName(). " is displayed in Capital Letters : ";
-
-		echo $output;
-		print_r( strtoupper($this->message) );
+		$output .= $this->message;
+		$output .= "</p>";
+		
+		return $output;	
 	}
 
 
