@@ -38,31 +38,35 @@ class WriteMessages {
 
 		// List of converation between 2 persons
 		echo "<h2>First conversation between Homer and Bart:</h2>";
+		
 		$homer->talksTo($bart);
-		$homer->getMessageInfo();
+		print_r($homer->chatInfo());
+		print_r($bart->chatInfo());
 
 		
 		echo "<h2>Second conversation between Homer and Bart in ENCODED:</h2>";
-		// $homer->encodeTalk(true);
-		// $bart->encodeTalk(true);
-		$homer->talksTo($bart, true);
-		print_r($homer->getMessageInfo());
-		print_r($bart->getMessageInfo());
+		
+		$homer->talksTo($bart, 'encode');
+		print_r($homer->chatInfo());
+		print_r($bart->chatInfo());
 
 
 		echo "<h2>Conversation between Bart and Homer:</h2>";
+		
 		$bart->talksTo($homer);
-		$bart->getMessageInfo();
+		$bart->chatInfo();
 
 
 		echo "<h2>Conversation between Apu and Homer:</h2>";
+		
 		$apu->talksTo($homer);
-		$apu->getMessageInfo();
+		$apu->chatInfo();
 
 		
 		echo "<h2>Conversation between Lisa and Marge:</h2>";
+		
 		$lisa->talksTo($bart);
-		$lisa->getMessageInfo();
+		$lisa->chatInfo();
 
 		echo "<h2>Apu and Burns use normal language:</h2>";
 		/** 
@@ -70,8 +74,9 @@ class WriteMessages {
 		 * 	false:  NO translation! They speak a nice language
 		 */ 			
 		$apu->talksTo($burns);
-		print_r($apu->getMessageInfo());
-		print_r($burns->getMessageInfo());
+		
+		print_r($apu->chatInfo());
+		print_r($burns->chatInfo());
 
 
 		// Check TalkState after talksTo is called in the class again

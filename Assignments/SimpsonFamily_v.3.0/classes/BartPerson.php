@@ -14,7 +14,7 @@
 // Writer class
 class BartPerson extends CartoonPerson {
 	
-
+	protected $quotes = array('D\'oh!', 'Eat my shorts!', 'Why you little...');
 
 }
 

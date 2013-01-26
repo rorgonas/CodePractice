@@ -14,11 +14,7 @@
 // Writer class
 class LisaPerson extends CartoonPerson {
 	
-	/**
-	 * Create instance variable for person's private quote
-	 * This property is overwritten by transformQuote() method in the base class
-	 */
-	// private $private_quote = 'Bart, you\'re cheating!';
+	protected $quotes = array('D\'oh!', 'Bart, you\'re cheating!');
 
 }
 

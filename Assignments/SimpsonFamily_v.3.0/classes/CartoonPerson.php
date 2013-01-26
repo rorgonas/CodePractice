@@ -24,10 +24,9 @@ class CartoonPerson
 	private $is_bald;
 
 	// Create a list of quotes
-	protected $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!', 'Why you little...');
-	
+	protected $quotes;  // quote list different for each person
 	protected $message; // random quote
-	protected $encode; 	// true: encode messag
+	protected $encode; 	// encode messag
 
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
@@ -50,9 +49,7 @@ class CartoonPerson
 		$this->favorite_dish = $favorite_dish;
 		$this->family_relationship = $family_relationship;
 		$this->is_bald = $is_bald;	
-		
 		$this->has_talked = false;
-		$this->encode = false;
 	}
 
 	/**
@@ -108,7 +105,7 @@ class CartoonPerson
 
 	public function getTalkState() 
 	{
-		return ($this->has_talked) ? '1' : '0';
+		return $this->has_talked;
 	}
 
 	/** 
@@ -119,10 +116,17 @@ class CartoonPerson
 
 	public function setTalkState($state) 
 	{
-		$this->has_talked = ($state == 1) ? true : false;
+		$this->has_talked = $state;
 	}
 
-	
+	/**
+	 * Set talk mode
+	 */
+	public function setTalkMode($mode) {
+		$this->encode = $mode;
+	}
+
+
 	/**
 	 * Transform any random quote respecting predefined rules
 	 * @param:  $quote - a random quote
@@ -131,18 +135,16 @@ class CartoonPerson
 
 	protected function transformQuote($quote) 
 	{
-		// Replace 'e' by 'y' chars 
-		// Split string into arrays of words
-		$quote = str_replace('e','y', $quote);	
-		$quote_array = explode(' ',$quote);
+				
+		$quote = str_replace('e','y', $quote);	// Replace 'e' by 'y' chars 
+		$array = explode(' ',$quote);    // Split string into arrays of words
 		
-		// Trim each words
-		foreach ($quote_array as $key=>$value) {
-			$quote_array[$key] = substr($value, 1,-1);
+		foreach ($array as $key=>$value) {
+			$array[$key] = substr($value, 1,-1);   // Trim each words
 		}		
 			
 		// Rebuild the message and return it
-		return strtoupper(implode(" ", $quote_array));
+		return strtoupper(implode(" ", $array));
 	}
 
 	/**
@@ -165,7 +167,7 @@ class CartoonPerson
 		$msg = $this->randomQuote();
 
 		switch ($this->encode) {
-			case true:
+			case 'encode':
 				$msg = $this->transformQuote($msg);
 				break;
 			
@@ -193,24 +195,18 @@ class CartoonPerson
 		return $num = str_word_count($this->message);
 	}
 
-	/**
-	 * Set talk mode
-	 */
-	public function encodeTalk($mode) {
-		$this->encode = $mode;
-	}
 
 	/**
 	 * Create talker method
 	 */
-	public function talksTo(CartoonPerson $p, $mode = false) 
+	public function talksTo(CartoonPerson $p, $mode = null) 
 	{		
 	 		 	
 		if (!$this->has_talked) {	            // if character has not talked yet		
 			
 			// Config talk
-			$this->setTalkState(1);				// this character is now talking: $state = true
-			$this->encodeTalk($mode);			// How is talking it metters. Encode message when $mode = true
+			$this->setTalkState(true);				// when person talkes the  $state = true
+			$this->setTalkMode($mode);				// message is encoded when $mode = 'encode'
 
 			// Generate ouuput
 			$output  = $this->name;
@@ -222,10 +218,10 @@ class CartoonPerson
 			echo $output;
 			$p->talksTo($this, $mode);		// $this being and instance of CartoonPerson as expected by function
 		}
-		$this->setTalkState(0); 				// reset Talk State: $state = false;
+		$this->setTalkState(false); 				// reset Talk State: $state = false;
 	}
 
-	public function getMessageInfo() 
+	public function chatInfo() 
 	{
 		$output = "<p>";
 		$output .= $this->getName(). " only said ". $this->wordCounter() ." words!</br >";

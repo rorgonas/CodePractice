@@ -14,16 +14,7 @@
 // Writer class
 class BurnsPerson extends CartoonPerson {
 	
-	// This person speaks plain language
-	// protected $language = "cool";
-
-	// protected function getPersonQuote() 
-	// {
-	// 	parent::getPersonQuote();
-	// 	return $this->message;
-	// }
-
-	//public $transform_quote = false;
+	protected $quotes = array('D\'oh!', 'Why you little...');
 }
 
 ?>

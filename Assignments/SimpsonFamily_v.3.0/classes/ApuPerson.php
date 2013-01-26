@@ -14,16 +14,7 @@
 // Writer class
 class ApuPerson extends CartoonPerson {
 	
-	// This person speaks plain language
-	// protected $language = "cool";
-
-	// public function getMessageInfo() 
-	// {
-	// 	parent::getMessageInfo();
-	// 	print_r( strtoupper( $this->transformQuote($this->message) ));
-	// }
-
-	//protected $transform_quote = false;
+	protected $quotes = array('D\'oh!', 'Eat my shorts!', 'Life on the Fast Lane!', 'Why you little...');
 
 }
 
