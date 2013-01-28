@@ -25,8 +25,8 @@ class CartoonPerson
 
 	// Create a list of quotes
 	protected $quotes;  // quote list different for each person
-	protected $message; // random quote
-	protected $encode; 	// encode messag
+	protected $message; // one random quote
+	protected $encode; 	// encode message
 
 	// Create flag to prevent infinite loop when talker method was called once
 	private $has_talked;
